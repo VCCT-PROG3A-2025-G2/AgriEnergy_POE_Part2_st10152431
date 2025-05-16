@@ -1,6 +1,110 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = "User Profile";
+    var isFarmer = HttpContextAccessor.HttpContext?.Session.GetInt32("FarmerId") != null;
+    var isEmployee = HttpContextAccessor.HttpContext?.Session.GetInt32("EmployeeId") != null;
+    var farmerName = HttpContextAccessor.HttpContext?.Session.GetString("FarmerName");
+    var employeeName = HttpContextAccessor.HttpContext?.Session.GetString("EmployeeName");
+}
+
+<body style="background-color:#FAF9F6; font-family:'Cascadia Mono'">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 style="font-size:2.5rem; color:darkolivegreen; font-weight:bold;">@ViewData["Title"]</h1>
+            <p style="font-size:1.1rem; color:#555;">
+                Manage your account, register as a farmer, or log in as a farmer or employee.
+            </p>
+        </div>
+
+        @if (isFarmer || isEmployee)
+        {
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <h3 class="mb-3" style="color:darkolivegreen;">
+                                Welcome, @(isFarmer ? farmerName : employeeName) @(isEmployee ? "(Employee)" : "")
+                            </h3>
+                            <form asp-action="Logout" method="post">
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title" style="color:darkolivegreen;">Register as Farmer</h3>
+                            <form asp-action="Register" method="post">
+                                <div class="mb-3">
+                                    <input type="text" name="farmerName" class="form-control" placeholder="First Name" required />
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" name="farmerSurname" class="form-control" placeholder="Surname" required />
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" name="farmerPassword" class="form-control" placeholder="Password" required />
+                                </div>
+                                <button type="submit" class="btn btn-success w-100">Register</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title" style="color:darkolivegreen;">Log-in as Farmer</h3>
+                            <form asp-action="Login" method="post">
+                                <div class="mb-3">
+                                    <input type="text" name="farmerName" class="form-control" placeholder="First Name" required />
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" name="farmerPassword" class="form-control" placeholder="Password" required />
+                                </div>
+                                <input type="hidden" name="employeePassword" value="" />
+                                <button type="submit" class="btn btn-primary w-100">Login as Farmer</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm mt-4">
+                        <div class="card-body">
+                            <h3 class="card-title" style="color:darkolivegreen;">Log-in as Employee</h3>
+                            <form asp-action="Login" method="post">
+                                <div class="mb-3">
+                                    <input type="text" name="farmerName" class="form-control" placeholder="Username" value="AgriEnergy" required />
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" name="employeePassword" class="form-control" placeholder="Password" required />
+                                </div>
+                                <input type="hidden" name="farmerPassword" value="" />
+                                <button type="submit" class="btn btn-primary w-100">Login as Employee</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="alert alert-danger mt-4">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <div>@error.ErrorMessage</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+

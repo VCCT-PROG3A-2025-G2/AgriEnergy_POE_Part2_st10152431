@@ -8,6 +8,7 @@ namespace PROG7311_ST10152431_Part2.Models
         public int ProductId { get; set; }
         public required string ProductName { get; set; }
         public required string ProductCategory { get; set; }
+        public DateTime ProductionDate { get; set; } 
         public decimal ProductPrice { get; set; }
 
         //Foreign Key

@@ -2,7 +2,52 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<body style="background-color:#FAF9F6; font-family:'Cascadia Mono'">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 style="font-size:3rem; color:darkolivegreen; font-weight:bold;">Agri-Energy Connect Platform</h1>
+            <p style="font-size:1.3rem; color:#555;">
+                Welcome to the Agri-Energy Connect Platform! <br />
+                Empowering farmers and employees to connect, trade, and grow together.
+            </p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h4 class="card-title" style="color:darkolivegreen;">Marketplace</h4>
+                        <p class="card-text">Browse and purchase fresh products directly from local farmers.</p>
+                        <a asp-controller="Home" asp-action="Products" class="btn btn-success">Go to Marketplace</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h4 class="card-title" style="color:darkolivegreen;">Resource Centre</h4>
+                        <p class="card-text">Access guides, tips, and resources to help you succeed in agriculture.</p>
+                        <a asp-controller="Home" asp-action="ResourceCentre" class="btn btn-success">Visit Resource Centre</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h4 class="card-title" style="color:darkolivegreen;">User Profile</h4>
+                        <p class="card-text">Register, log in, and manage your account details securely.</p>
+                        <a asp-controller="Home" asp-action="Privacy" class="btn btn-success">User Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-lg-10">
+                <div class="p-4" style="background-color: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <p style="font-size:1.1rem; color:#444;">
+                        AgriEnergy is a one-stop, web-based hub designed especially for farmers who want to integrate sustainable energy solutions into their day-to-day operations. By bringing together a dynamic marketplace for solar- and wind-powered irrigation systems, biogas digesters, and other green technologies, AgriEnergy makes it easy for growers to compare products, read honest reviews, and connect directly with trusted suppliers. At the same time, interactive forums and discussion boards let farmers share real-world tips on soil health, water conservation, and organic practices, while our educational center hosts live webinars, short courses, and how-to guides for adopting clean energy on the farm. Whether you’re a small-scale family farmer or managing a large cooperative, AgriEnergy helps you cut costs, reduce your carbon footprint, and tap into a community of experts and peers—all through a simple, role-based platform that puts the tools, training, and transactions you need right at your fingertips.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

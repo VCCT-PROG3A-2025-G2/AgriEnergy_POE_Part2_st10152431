@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,9 +13,10 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm border-bottom box-shadow mb-3">
+        <div style="background-color:antiquewhite; font-family:'Cascadia Mono'">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Agri-Energy Connect Platform</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color:darkolivegreen">Agri-Energy Connect Platform</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,28 +27,44 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">User Profile</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy" style="color:darkolivegreen">User Profile</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Products">Marketplace</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ResourceCentre">Resource Centre</a>
-                        </li>
+                            @if (HttpContextAccessor.HttpContext?.Session.GetInt32("FarmerId") != null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Products">Marketplace</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ResourceCentre">Resource Centre</a>
+                                </li>
+                            }
+
+                            @if (HttpContextAccessor.HttpContext?.Session.GetInt32("EmployeeId") != null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ManageFarmers">Manage Farmers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ManageProducts">Manage Products</a>
+                                </li>
+                            }
                     </ul>
                 </div>
             </div>
         </nav>
+        </div>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="color:darkolivegreen">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
+        <div style="background-color:antiquewhite; font-family:'Cascadia Mono'">
         <div class="container">
             &copy; 2025 - Agri-Energy Connect Platform - <a asp-area="" asp-controller="Home" asp-action="Privacy">User Profile</a>
+        </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

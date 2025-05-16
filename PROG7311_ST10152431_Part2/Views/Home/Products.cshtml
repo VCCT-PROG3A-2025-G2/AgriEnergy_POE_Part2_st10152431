@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PROG7311_ST10152431_Part2.Models.Product>
+
+@{
+	ViewData["Title"] = "Marketplace";
+}
+
+<body style="background-color:#FAF9F6; font-family:'Cascadia Mono'">
+	<div>
+		<h1>@ViewData["Title"]</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Production Date</th>
+					<th>Price</th>
+					<th>Farmer</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var product in Model)
+				{
+					<tr>
+						<td>@product.ProductName</td>
+						<td>@product.ProductCategory</td>
+						<td>@product.ProductionDate.ToShortDateString()</td>
+						<td>@product.ProductPrice.ToString("C")</td>
+						<td>@product.Farmer.FarmerName @product.Farmer.FarmerSurname</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="row justify-content-center mt-5">
+		<div class="col-md-6">
+			<div class="card shadow-sm">
+				<div class="card-body">
+					<h3 class="card-title" style="color:darkolivegreen;">Add Products</h3>
+					<form asp-action="AddProduct" method="post">
+						<div class="mb-3">
+							<label class="form-label">Product Name:</label>
+							<input type="text" name="productName" class="form-control" required />
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Category:</label>
+							<input type="text" name="productCategory" class="form-control" required />
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Production Date:</label>
+							<input type="date" name="productionDate" class="form-control" required />
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Price:</label>
+							<input type="number" name="productPrice" class="form-control" step="0.01" required />
+						</div>
+						<button type="submit" class="btn btn-success w-100">Add Product</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

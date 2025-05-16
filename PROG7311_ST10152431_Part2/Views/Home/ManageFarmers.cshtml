@@ -1,0 +1,34 @@
+﻿@model IEnumerable<PROG7311_ST10152431_Part2.Models.Farmer>
+
+@{
+    ViewData["Title"] = "Manage Farmers";
+}
+<body style="font-family:'Cascadia Mono'; background-color:#FAF9F6">
+<h1>Manage Farmers</h1>
+
+    <a asp-action="AddFarmer" class="btn btn-success mb-3">Add Farmer</a>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var farmer in Model)
+        {
+            <tr>
+                <td>@farmer.FarmerName</td>
+                <td>@farmer.FarmerSurname</td>
+                <td>
+                    <a asp-action="EditFarmer" asp-route-id="@farmer.FarmerId" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="DeleteFarmer" asp-route-id="@farmer.FarmerId" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this farmer?');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</body>

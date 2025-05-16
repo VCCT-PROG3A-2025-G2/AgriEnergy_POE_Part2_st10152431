@@ -1,0 +1,25 @@
+﻿@model PROG7311_ST10152431_Part2.Models.Farmer
+
+@{
+    ViewData["Title"] = "Add Farmer";
+}
+
+<body style="background-color:#FAF9F6; font-family:'Cascadia Mono'">
+<h2>Add Farmer</h2>
+
+<form asp-action="AddFarmer" method="post">
+    <div class="mb-3">
+        <label asp-for="FarmerName" class="form-label"></label>
+        <input asp-for="FarmerName" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="FarmerSurname" class="form-label"></label>
+        <input asp-for="FarmerSurname" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="FarmerPassword" class="form-label"></label>
+        <input asp-for="FarmerPassword" class="form-control" type="password" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Farmer</button>
+</form>
+</body>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PROG7311_ST10152431_Part2.Models.Product>
+@{
+	ViewData["Title"] = "Manage Products";
+	var currentCategory = ViewBag.CurrentCategory as string;
+	var currentDate = ViewBag.CurrentDate as string;
+	var farmers = ViewBag.Farmers as List<PROG7311_ST10152431_Part2.Models.Farmer>;
+	var currentFarmerId = ViewBag.CurrentFarmerId as int?;
+}
+
+<body style="font-family:'Cascadia Mono'; background-color:#FAF9F6">
+	<h1>Manage Products</h1>
+
+	<form method="get" asp-action="ManageProducts" style="margin-bottom:20px;">
+		<label>Category:</label>
+		<input type="text" name="category" value="@currentCategory" />
+		<label style="margin-left:10px;">Production Date:</label>
+		<input type="date" name="productionDate" value="@currentDate" />
+		<label style="margin-left:10px;">Farmer:</label>
+		<select name="farmerId" style="margin-left:5px;">
+			<option value="">All</option>
+			@foreach (var farmer in farmers)
+			{
+				if (currentFarmerId == farmer.FarmerId)
+				{
+					<option value="@farmer.FarmerId" selected>
+						@farmer.FarmerName @farmer.FarmerSurname
+					</option>
+				}
+				else
+				{
+					<option value="@farmer.FarmerId">
+						@farmer.FarmerName @farmer.FarmerSurname
+					</option>
+				}
+			}
+
+		</select>
+		<button type="submit" class="btn btn-sm btn-primary" style="margin-left:10px;">Filter</button>
+		<a asp-action="ManageProducts" class="btn btn-sm btn-secondary" style="margin-left:5px;">Clear</a>
+	</form>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Product Name</th>
+				<th>Category</th>
+				<th>Production Date</th>
+				<th>Price</th>
+				<th>Farmer</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var product in Model)
+			{
+				<tr>
+					<td>@product.ProductName</td>
+					<td>@product.ProductCategory</td>
+					<td>@product.ProductionDate.ToShortDateString()</td>
+					<td>@product.ProductPrice.ToString("C")</td>
+					<td>@product.Farmer.FarmerName @product.Farmer.FarmerSurname</td>
+					<td>
+						<a asp-action="EditProduct" asp-route-id="@product.ProductId" class="btn btn-sm btn-primary">Edit</a>
+						<a asp-action="DeleteProduct" asp-route-id="@product.ProductId" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</body>
